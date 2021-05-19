@@ -16,9 +16,10 @@ Candidate.reset_pk_sequence
 Room.destroy_all
 Room.reset_pk_sequence
 
-CandidateRoom.destroy_all
-CandidateRoom.reset_pk_sequence
-
+if CandidateRoom.all
+    CandidateRoom.destroy_all
+    CandidateRoom.reset_pk_sequence
+end
 
 a = Audition.create(date: DateTime.now, instrument: "violin" )
 
@@ -32,10 +33,10 @@ a = Audition.create(date: DateTime.now, instrument: "violin" )
     p.save
 }
 
-rooms = ["Green Room", "255","256", "RR1"]
+rooms = ["Stage", "Green Room", "255","256", "RR1"]
 
 rooms.each_with_index do |r, i|
-    room = Room.new(name: r, order: i)
+    room = Room.new(name: r, fill_order: i)
     room.save
     room.audition = a
     room.save

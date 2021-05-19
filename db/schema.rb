@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_19_020301) do
+ActiveRecord::Schema.define(version: 2021_05_19_210524) do
 
   create_table "auditions", force: :cascade do |t|
     t.datetime "date"
@@ -20,12 +20,12 @@ ActiveRecord::Schema.define(version: 2021_05_19_020301) do
   end
 
   create_table "candidate_rooms", force: :cascade do |t|
-    t.integer "candidate_id"
-    t.integer "room_id"
+    t.integer "rooms_id"
+    t.integer "candidates_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["candidate_id"], name: "index_candidate_rooms_on_candidate_id"
-    t.index ["room_id"], name: "index_candidate_rooms_on_room_id"
+    t.index ["candidates_id"], name: "index_candidate_rooms_on_candidates_id"
+    t.index ["rooms_id"], name: "index_candidate_rooms_on_rooms_id"
   end
 
   create_table "candidates", force: :cascade do |t|
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2021_05_19_020301) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.integer "order"
+    t.integer "fill_order"
     t.string "name"
     t.integer "audition_id"
     t.datetime "created_at", precision: 6, null: false
