@@ -1,2 +1,4 @@
 class CandidateRoom < ApplicationRecord
-end
+    belongs_to :candidate
+    belongs_to :room
+  
