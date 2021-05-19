@@ -20,12 +20,12 @@ ActiveRecord::Schema.define(version: 2021_05_19_210524) do
   end
 
   create_table "candidate_rooms", force: :cascade do |t|
-    t.integer "rooms_id"
-    t.integer "candidates_id"
+    t.integer "room_id"
+    t.integer "candidate_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["candidates_id"], name: "index_candidate_rooms_on_candidates_id"
-    t.index ["rooms_id"], name: "index_candidate_rooms_on_rooms_id"
+    t.index ["candidate_id"], name: "index_candidate_rooms_on_candidate_id"
+    t.index ["room_id"], name: "index_candidate_rooms_on_room_id"
   end
 
   create_table "candidates", force: :cascade do |t|
