@@ -28,7 +28,7 @@ An orchestra audition management app
 
 ## User Experience
 
-**Step 1:** Create A new Audition form
+**Step 1:** Create A new Audition form (checkbox for greenroom? holding room?)
 **Step 2:** Check-in candidates (auto assign number and room based on availability?) 
 **Step 3:** Manage the movement between holding room, warm-up space, on-deck, stage, end
 
