@@ -16,6 +16,9 @@ Candidate.reset_pk_sequence
 Room.destroy_all
 Room.reset_pk_sequence
 
+CandidateRoom.destroy_all
+CandidateRoom.reset_pk_sequence
+
 
 a = Audition.create(date: DateTime.now, instrument: "violin" )
 
