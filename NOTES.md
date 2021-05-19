@@ -5,9 +5,8 @@ An orchestra audition management app
 ## Models
 
 - Audition
-    - Date
-    - Start Time 
-    - Instrument
+    - :date - datetime
+    - :instrument - string
     -has_many: Candidates & Rooms
 
 - Candidates

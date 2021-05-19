@@ -1,0 +1,2 @@
+class CandidateRoomsController < ApplicationController
+end
