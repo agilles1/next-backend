@@ -12,6 +12,12 @@ class Candidate < ApplicationRecord
         end
     end
 
+    def assign_number
+        self.audition.increase_counter
+        self.number = self.audition.counter
+        self.save
+    end
+
 # Possible refactor to a change_room_by_name method?
 
     def on_deck
