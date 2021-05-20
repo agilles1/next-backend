@@ -4,9 +4,15 @@ class Candidate < ApplicationRecord
     belongs_to :audition
 
     def assign_room
-        self.room = Room.next_avail_room
-        self.save
+        if !!Room.next_avail_room
+            self.room = Room.next_avail_room
+            self.save
+        else 
+            self.to_holding
+        end
     end
+
+# Possible refactor to a change_room_by_name method?
 
     def on_deck
         self.room = Room.find_by(name: "Green Room")
@@ -15,6 +21,11 @@ class Candidate < ApplicationRecord
 
     def to_stage
         self.room = Room.find_by(name: "Stage")
+        self.save
+    end
+
+    def to_holding
+        self.room = Room.find_by(name: "Holding")
         self.save
     end
 
