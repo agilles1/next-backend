@@ -3,6 +3,10 @@ class Candidate < ApplicationRecord
     has_one :room, through: :candidate_room
     belongs_to :audition
 
+    @@holding = Room.find_by(name: "Holding")
+    @@green_room = Room.find_by(name: "Green Room")
+    @@stage = Room.find_by(name: "Stage")
+
     def assign_room
         if Room.next_avail_room
             self.room = Room.next_avail_room
@@ -18,20 +22,32 @@ class Candidate < ApplicationRecord
         self.save
     end
 
-# Possible refactor to a change_room_by_name method?
+    def update_room
+        if !!self.room || self.in_holding?
+            self.assign_room
+        elsif !self.in_green_room? && !self.on_stage?
+            self.on_deck
+        elsif self.in_green_room?
+            self.to_stage
+        elsif self.on_stage?
+            self.clear_room
+        else
+            self.room
+        end
+    end
 
     def on_deck
-        self.room = Room.find_by(name: "Green Room")
+        self.room = @@green_room
         self.save
     end
 
     def to_stage
-        self.room = Room.find_by(name: "Stage")
+        self.room = @@stage
         self.save
     end
 
     def to_holding
-        self.room = Room.find_by(name: "Holding")
+        self.room = @@holding
         self.save
     end
 
@@ -39,4 +55,17 @@ class Candidate < ApplicationRecord
         self.room = nil
         self.save
     end
+
+    def on_stage?
+        self.room == @@stage
+    end
+
+    def in_green_room?
+        self.room == @@green_room
+    end
+
+    def in_holding?
+        self.room == @@holding
+    end
+
 end
