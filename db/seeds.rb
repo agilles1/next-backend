@@ -33,11 +33,14 @@ a = Audition.create(date: DateTime.now, instrument: "violin" )
     p.save
 }
 
-rooms = ["Stage", "Green Room", "255","256", "RR1"]
+rooms = [{name: "Stage"}, {name: "Green Room"}, {name: "Holding", group: true}, {name: "255"},{name: "256"}, {name: "RR1", group: true}]
 
 rooms.each_with_index do |r, i|
-    room = Room.new(name: r, fill_order: i)
+    room = Room.new(name: r[:name], fill_order: i)
     room.save
+    if r[:group]
+        room.group = r[:group]
+    end
     room.audition = a
     room.save
 end
