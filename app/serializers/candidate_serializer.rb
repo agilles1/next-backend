@@ -1,6 +1,10 @@
 class CandidateSerializer < ActiveModel::Serializer
-  attributes :id, :room, :number
-  belongs_to :audition, serializer: AuditionSerializer
-  has_one :room
+  attributes :id, :number, :name, :room
+
+  def room
+    room = {id: object.room.id, name: object.room.name}
+    return room 
+  end
+
 
 end

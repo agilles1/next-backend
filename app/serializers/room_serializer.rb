@@ -1,5 +1,4 @@
 class RoomSerializer < ActiveModel::Serializer
-  attributes :id
-  belongs_to :audition
-  belongs_to :candidate
+  attributes :id, :name
+  
 end
