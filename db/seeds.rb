@@ -39,7 +39,7 @@ rooms.each_with_index do |r, i|
     room = Room.new(name: r[:name], fill_order: i)
     room.save
     if r[:group]
-        room.group = r[:group]
+        room.holding = r[:group]
     end
     room.audition = a
     room.save

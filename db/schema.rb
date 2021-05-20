@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2021_05_19_221349) do
     t.integer "audition_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "group", default: false
+    t.boolean "holding", default: false
     t.index ["audition_id"], name: "index_rooms_on_audition_id"
   end
 
