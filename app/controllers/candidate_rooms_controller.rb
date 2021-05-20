@@ -1,2 +1,0 @@
-class CandidateRoomsController < ApplicationController
-end
