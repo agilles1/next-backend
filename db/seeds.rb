@@ -31,6 +31,7 @@ a = Audition.create(date: DateTime.now, instrument: "violin" )
     p.save
     p.audition = a
     p.save
+    p.assign_number
 }
 
 rooms = [{name: "Stage"}, {name: "Green Room"}, {name: "Holding", group: true}, {name: "255"},{name: "256"}, {name: "257"}]
