@@ -1,8 +1,26 @@
 class Api::V1::AuditionsController < ApplicationController
-    before_action :set_audition
+    before_action :set_audition, except: [:index, :create]
+
+    def index 
+        auditions = Audition.all
+        render json: auditions
+    end
+
+    def create
+        audition = Audition.new(audition_params)
+        if audition.save 
+            render json: audition
+        else
+            render json: {error: 'Account not created'}
+        end
+    end
 
     def show
       render json: @audition
+    end
+
+    def destroy
+        @account.destroy
     end
 
     private
