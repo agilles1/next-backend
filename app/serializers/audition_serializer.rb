@@ -1,4 +1,4 @@
 class AuditionSerializer < ActiveModel::Serializer
   attributes :id
-  has_many :candidate
+  has_many :candidates
 end
