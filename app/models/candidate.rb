@@ -4,7 +4,7 @@ class Candidate < ApplicationRecord
     belongs_to :audition
 
     def assign_room
-        if !!Room.next_avail_room
+        if Room.next_avail_room
             self.room = Room.next_avail_room
             self.save
         else 
