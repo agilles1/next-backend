@@ -1,8 +1,9 @@
 class Api::V1::CandidatesController < ApplicationController
     before_action :set_candidate, except: [:index, :create]
+    before_action :set_audition, only: [:index]
 
     def index
-        candidates = Candidate.all
+        candidates = @audition.candidates
         render json: candidates
     end
 
@@ -27,7 +28,7 @@ class Api::V1::CandidatesController < ApplicationController
         if @candidate.save
             render json: @candidate
         else
-            render json: {error: 'Error updating room}
+            render json: {error: 'Error updating room'}
         end
     end
 
@@ -39,6 +40,10 @@ class Api::V1::CandidatesController < ApplicationController
 
     def candidate_params
         params.require(:candidate).permit(:name, :email, :phone, :audition_id)
+    end
+
+    def set_audition
+        @audition = Audition.find(params[:audition_id])
     end
 
     def set_candidate
