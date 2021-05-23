@@ -1,18 +1,21 @@
 class Room < ApplicationRecord
     has_many :candidate_rooms
     has_many :candidates, through: :candidate_rooms
-    belongs_to :audition 
+    has_many :audition_rooms
+    has_many :auditions, through: :audition_rooms 
+
     scope :single_rooms, -> {where('holding == false').where('fill_order > 2').order(:fill_order)}
     scope :group_rooms, -> {where('holding == true').order(:fill_order)}
 
     
-        def self.next_avail_room
+        def self.next_avail_room(audition)
         available_rooms = []
+       
+        rooms = audition.rooms.single_rooms
 
-        rooms = self.single_rooms
-    
         rooms.each do |room|
-            room.candidates.length < 1 ? available_rooms.push(room) : nil
+         
+            room.candidates.any? {|c| c.audition == audition} ? nil : available_rooms.push(room)
         end
                    
         available_rooms.first
@@ -24,15 +27,11 @@ class Room < ApplicationRecord
             rooms_array = audition_params["rooms"].gsub(/\s+/, "").split(",")
 
             rooms_array.each_with_index do |room_name, i|
-                r = Room.find_or_create_by(name: room_name)
-                r.fill_order = i + 3
-                r.holding = false
-                r.audition = audition
-                r.save
-                rooms.push(r)
+                room = Room.find_or_create_by(name: room_name)
+                room.holding = false
+                room.save
+                AuditionRoom.create(audition_id: audition.id, room_id: room.id, fill_order: i+3)
             end
-
-            return rooms
         end
 
         def self.add_stage_green_room_holding(audition_params, audition)
@@ -46,9 +45,9 @@ class Room < ApplicationRecord
                 rooms.push(holding)
             end
 
-            rooms.each do |room |
-                room.audition = audition
-                room.save
+            rooms.each_with_index do |room, i|
+                binding.pry
+                AuditionRoom.create(audition_id: audition.id, room_id: room.id, fill_order: i)
             end
 
             return rooms

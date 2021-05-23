@@ -1,6 +1,7 @@
 class Audition < ApplicationRecord
     has_many :candidates
-    has_many :rooms
+    has_many :audition_rooms
+    has_many :rooms, through: :audition_rooms
 
     def increase_counter
         self.counter += 1
@@ -16,7 +17,7 @@ class Audition < ApplicationRecord
         if audition.save
            Room.new_from_audition(audition_params, audition)
         end
-binding.pry
+
         return audition
 
     end

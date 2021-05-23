@@ -8,8 +8,8 @@ class Candidate < ApplicationRecord
     @@stage = Room.find_by(name: "Stage")
 
     def assign_room
-        if Room.next_avail_room
-            self.room = Room.next_avail_room
+        if Room.next_avail_room(self.audition)
+            self.room = Room.next_avail_room(self.audition)
             self.save
         else 
             self.to_holding
@@ -23,7 +23,7 @@ class Candidate < ApplicationRecord
     end
 
     def update_room
-        if !!self.room || self.in_holding?
+        if self.in_holding?
             self.assign_room
         elsif !self.in_green_room? && !self.on_stage?
             self.on_deck
