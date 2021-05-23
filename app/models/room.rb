@@ -37,16 +37,11 @@ class Room < ApplicationRecord
         def self.add_stage_green_room_holding(audition_params, audition)
             green_room = Room.find_or_create_by(name: "Green Room")
             stage = Room.find_or_create_by(name: "Stage")
-         
-            rooms = [stage, green_room]
+            holding = Room.find_or_create_by(name: "Holding")
 
-            if audition_params["holding"]
-                holding = Room.find_or_create_by(name: "Holding")
-                rooms.push(holding)
-            end
+            rooms = [stage, green_room, holding]
 
             rooms.each_with_index do |room, i|
-                binding.pry
                 AuditionRoom.create(audition_id: audition.id, room_id: room.id, fill_order: i)
             end
 
