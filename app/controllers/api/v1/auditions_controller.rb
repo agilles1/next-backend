@@ -7,9 +7,10 @@ class Api::V1::AuditionsController < ApplicationController
     end
 
     def create
-        binding.pry
-        audition = Audition.new(audition_params)
+        audition = Audition.new_with_rooms(audition_params)
+
         if audition.save 
+            binding.pry
             render json: audition
         else
             render json: {error: 'Account not created'}
