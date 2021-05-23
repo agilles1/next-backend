@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_20_014007) do
+ActiveRecord::Schema.define(version: 2021_05_23_200414) do
+
+  create_table "audition_rooms", force: :cascade do |t|
+    t.integer "audition_id"
+    t.integer "room_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "fill_order"
+    t.index ["audition_id"], name: "index_audition_rooms_on_audition_id"
+    t.index ["room_id"], name: "index_audition_rooms_on_room_id"
+  end
 
   create_table "auditions", force: :cascade do |t|
     t.datetime "date"
@@ -41,13 +51,10 @@ ActiveRecord::Schema.define(version: 2021_05_20_014007) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.integer "fill_order"
     t.string "name"
-    t.integer "audition_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "holding", default: false
-    t.index ["audition_id"], name: "index_rooms_on_audition_id"
   end
 
 end

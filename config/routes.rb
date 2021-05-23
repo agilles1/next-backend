@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :audition_rooms
   # resources :rooms
   namespace :api do
     namespace :v1 do

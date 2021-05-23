@@ -1,0 +1,2 @@
+class AuditionRoomsController < ApplicationController
+end

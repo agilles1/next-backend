@@ -16,6 +16,9 @@ Candidate.reset_pk_sequence
 Room.destroy_all
 Room.reset_pk_sequence
 
+AuditionRoom.destroy_all
+AuditionRoom.reset_pk_sequence
+
 if CandidateRoom.all
     CandidateRoom.destroy_all
     CandidateRoom.reset_pk_sequence
@@ -37,11 +40,16 @@ a = Audition.create(date: DateTime.now, instrument: "violin" )
 rooms = [{name: "Stage"}, {name: "Green Room"}, {name: "Holding", group: true}, {name: "255"},{name: "256"}, {name: "257"}]
 
 rooms.each_with_index do |r, i|
-    room = Room.new(name: r[:name], fill_order: i)
+    room = Room.new(name: r[:name])
     room.save
     if r[:group]
         room.holding = r[:group]
     end
-    room.audition = a
     room.save
+    ar = AuditionRoom.new(audition_id: a.id, room_id: room.id, fill_order: i)
+    ar.save
+end
+
+a.candidates.each do |c|
+    c.assign_room
 end
