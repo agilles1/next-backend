@@ -7,9 +7,18 @@ class Audition < ApplicationRecord
         self.save
     end
 
-    def self.new_with_rooms(params)
-        datetime = 
-        a = Audition.new(params["date"])
+    def self.new_with_rooms(audition_params)
+        
+        date = Time.parse(audition_params["date"] + " " + audition_params["time"])
+        instrument = audition_params["instrument"]
+        audition = Audition.new(date: date, instrument: instrument)
+
+        if audition.save
+           Room.new_from_audition(audition_params, audition)
+        end
+binding.pry
+        return audition
+
     end
-    # "date"=>"11:00", "instrument"=>"test", "holding"=>true, "rooms"=>"255, 256, 257, 258"
+
 end
