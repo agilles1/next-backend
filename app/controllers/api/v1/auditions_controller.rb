@@ -7,6 +7,7 @@ class Api::V1::AuditionsController < ApplicationController
     end
 
     def create
+        binding.pry
         audition = Audition.new(audition_params)
         if audition.save 
             render json: audition
@@ -26,7 +27,7 @@ class Api::V1::AuditionsController < ApplicationController
     private
 
     def audition_params
-        params.require(:audition).permit(:date, :instrument)
+        params.require(:audition).permit(:date, :time, :instrument, :holding, :rooms)
     end
 
     def set_audition
