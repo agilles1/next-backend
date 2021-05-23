@@ -7,9 +7,9 @@ class Api::V1::CandidatesController < ApplicationController
         render json: candidates
     end
 
-    def show
-        render json: @candidate
-    end
+    # def show
+    #     render json: @candidate
+    # end
 
     def create
         candidate = Candidate.new(candidate_params)
@@ -32,9 +32,9 @@ class Api::V1::CandidatesController < ApplicationController
         end
     end
 
-    def destroy
-        @candidate.destroy
-    end
+    # def destroy
+    #     @candidate.destroy
+    # end
 
     private
 
