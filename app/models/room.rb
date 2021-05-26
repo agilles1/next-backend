@@ -14,10 +14,8 @@ class Room < ApplicationRecord
         rooms = audition.rooms.single_rooms
 
         rooms.each do |room|
-         
             room.candidates.any? {|c| c.audition == audition} ? nil : available_rooms.push(room)
-        end
-                   
+        end        
         available_rooms.first
         end
 

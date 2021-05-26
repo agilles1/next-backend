@@ -26,15 +26,20 @@ class Candidate < ApplicationRecord
         if self.in_holding?
             self.assign_room
         elsif !self.in_green_room? && !self.on_stage?
-            self.on_deck
+            self.on_deck 
+            self.fill_behind
         elsif self.in_green_room?
             self.to_stage
+            self.fill_behind_green_room
         elsif self.on_stage?
             self.clear_room
         else
             self.room
         end
+        
     end
+
+
 
     def on_deck
         self.room = @@green_room
@@ -54,6 +59,16 @@ class Candidate < ApplicationRecord
     def clear_room
         self.room = nil
         self.save
+    end
+
+    def fill_behind
+        next_candidate = Candidate.find_by(number: self.number + self.audition.rooms.single_rooms.count, audition_id: self.audition_id)
+        next_candidate.update_room
+    end
+
+    def fill_behind_green_room
+        next_candidate = Candidate.find_by(number: self.number + 1, audition_id: self.audition_id)
+        next_candidate.update_room
     end
 
     def on_stage?

@@ -2,7 +2,6 @@ class Audition < ApplicationRecord
     has_many :candidates
     has_many :audition_rooms
     has_many :rooms, through: :audition_rooms
-    scope :all_future_in_order, -> {where('date >= NOW()').order(:date)}
 
     def increase_counter
         self.counter += 1
