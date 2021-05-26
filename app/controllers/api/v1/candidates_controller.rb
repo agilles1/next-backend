@@ -24,11 +24,11 @@ class Api::V1::CandidatesController < ApplicationController
     end
 
     def update
-        binding.pry
+       
         @candidate.update_room
         if @candidate.save
             
-            render json: @candidate
+            render json: @candidate.audition
         else
             render json: {error: 'Error updating room'}
         end
