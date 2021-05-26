@@ -1,10 +1,10 @@
 class Api::V1::AuditionsController < ApplicationController
     before_action :set_audition, except: [:index, :create]
 
-    # def index 
-    #     auditions = Audition.all
-    #     render json: auditions
-    # end
+    def index 
+        auditions = Audition.all
+        render json: auditions
+    end
 
     def create
         audition = Audition.new_with_rooms(audition_params)
@@ -17,7 +17,7 @@ class Api::V1::AuditionsController < ApplicationController
     end
 
     def show
-      render json: @audition
+        render json: @audition
     end
 
     # def destroy
