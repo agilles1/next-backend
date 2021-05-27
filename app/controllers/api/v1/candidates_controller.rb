@@ -17,7 +17,7 @@ class Api::V1::CandidatesController < ApplicationController
         candidate.assign_room
 
         if candidate.save
-            render json: candidate
+            render json: candidate.audition
         else
             render json: {error: 'Candidate not created'}
         end
